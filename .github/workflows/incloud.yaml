@@ -16,12 +16,12 @@ jobs:
           go-version: 1.21 
           cache: 'go'
           path: /home/runner/go
-          key: ${{ runner.os }}-go 
+          key: ${{ runner.os }}-go  
 
       - name: Setup Dependencies
         run: |
           sudo apt-get install libpcap-dev
-          rm -rf *_*.txt
+          rm -rf *_*.txt 
 
       - name: Setting up ProjectDiscovery tools 
         env:
@@ -47,8 +47,8 @@ jobs:
 
       - name: Running SubFinder for passive DNS enumeration
         run: |
-          sudo rm -rf *_*.txt
-          subfinder -dL domains.txt -config config/subfinder-config.yaml | dnsx -silent -o active_subdomains.txt 
+          rm -rf *_*.txt 
+          subfinder -dL domains.txt -config config/subfinder-config.yaml | dnsx -silent -o active_subdomains.txt  
         shell: bash
 
       - name: Scaning all ports...
@@ -59,7 +59,7 @@ jobs:
           naabu -l active_subdomains.txt -rate 20000 -p - -o passive_subdomains.txt
         shell: bash
 
-      # - name: Running dnsx for valid DNS filtering 
+      # - name: Running dnsx for valid DNS filtering  
       #   run: |
       #     dnsx -l passive_subdomains.txt -t 50 | tee -a active_subdomains.txt
       #     sort -u active_subdomains.txt
