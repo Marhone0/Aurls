@@ -125,7 +125,7 @@ jobs:
         run: |
           git config --local user.email "admin@inbug.org"
           git config --global user.name "inbug-team"
-          git commit -m "InCloud Report" -a --allow-empty 
+          git commit -m "InCloud Report" -a --allow-empty
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
