@@ -15,7 +15,7 @@ jobs:
         with:
           go-version: 1.21 
           cache: 'go'
-          path: /home/runner/go
+          path: /home/runner/go 
           key: ${{ runner.os }}-go  
 
       - name: Setup Dependencies
@@ -58,9 +58,9 @@ jobs:
           naabu -l active_subdomains.txt -rate 20000 -p - -o passive_subdomains.txt
         shell: bash
 
-      # - name: Running dnsx for valid DNS filtering  
+      # - name: Running dnsx for valid DNS filtering   
       #   run: |
-      #     dnsx -l passive_subdomains.txt -t 50 | tee -a active_subdomains.txt
+      #     dnsx -l passive_subdomains.txt -t 50 | tee -a active_subdomains.txt 
       #     sort -u active_subdomains.txt
       #   shell: bash
       
@@ -68,16 +68,16 @@ jobs:
       #   continue-on-error: true
       #   # timeout-minutes: 30
       #   run: |
-      #     #nuclei -tags log4j -l active_urls.txt -bs 100 -c 50 -rl 300 -nc | tee nuclei_output.txt  
+      #     #nuclei -tags log4j -l active_urls.txt -bs 100 -c 50 -rl 300 -nc | tee nuclei_output.txt   
       #     #naabu -l passive_subdomains.txt -p 1-65535 -c 10000 | httpx -title -t 230 | tee naabu.txt
           
       #     naabu -l active_subdomains.txt -p 1-65535 -c 10000 -o naabu.txt  
-      #     cat naabu.txt >> active_subdomains.txt | sort -u  
+      #     cat naabu.txt >> active_subdomains.txt | sort -u   
           
 
 
       # - name: Running httpx for HTTP webservers probbing 
-      #   continue-on-error: true
+      #   continue-on-error: true 
       #   run: |
       #     #httpx -l active_subdomains.txt -title -t 230 
       #     httpx -l active_subdomains.txt -t 730 -mc 100,101,200,201,204,301,302,304,400,403,404,500,502,503 -o passive_subdomains.txt
@@ -89,7 +89,7 @@ jobs:
       #   timeout-minutes: 50
       #   run: |
       #     #nuclei -tags log4j -l active_urls.txt -bs 100 -c 50 -rl 300 -nc | tee nuclei_output.txt  
-      #     naabu -l passive_subdomains.txt -rate 10000 -p - | tee -a passive_subdomains.txt 
+      #     naabu -l passive_subdomains.txt -rate 10000 -p - | tee -a passive_subdomains.txt  
       #   shell: bash
         
       - name: Getting all urls...
@@ -100,13 +100,13 @@ jobs:
           cat passive_subdomains.txt | gau --subs --blacklist png,jpg,gif,css,txt --o ${d}_g.txt 
           #cat passive_subdomains.txt | waybackurls > ${d}_w.txt
           
-          #nuclei -tags log4j -l active_urls.txt -bs 100 -c 50 -rl 300 -nc | tee nuclei_output.txt   
-          #naabu -l passive_subdomains.txt -p 1-65535 -c 2000 | httpx -title -t 230 | tee naabu.txt  
+          #nuclei -tags log4j -l active_urls.txt -bs 100 -c 50 -rl 300 -nc | tee nuclei_output.txt
+          #naabu -l passive_subdomains.txt -p 1-65535 -c 2000 | httpx -title -t 230 | tee naabu.txt
           #naabu -l passive_subdomains.txt -p 1-65535 -c 2000 | tee naabu.txt 
           # naabu -l passive_subdomains.txt -tp 100 -c 3000 | tee naabu.txt
-          # cat naabu.txt | waybackurls > way_urls.txt | tee -a gl.txt  
-          #cat passive_subdomains.txt | gau --subs --blacklist png,jpg,gif,css | tee g_w.txt               
-          #cat passive_subdomains.txt | waybackurls > way_urls.txt | tee -a g_w.txt    
+          # cat naabu.txt | waybackurls > way_urls.txt | tee -a gl.txt
+          #cat passive_subdomains.txt | gau --subs --blacklist png,jpg,gif,css | tee g_w.txt          
+          #cat passive_subdomains.txt | waybackurls > way_urls.txt | tee -a g_w.txt
           # sort -u g_w.txt
         shell: bash
 
@@ -115,7 +115,7 @@ jobs:
       #   continue-on-error: true 
       #   run: |
       #       git clone https://github.com/projectdiscovery/fuzzing-templates.git 
-      #       nuclei -l g_l.txt -t fuzzing-templates -rl 50 -o nuclei_out.txt
+      #       nuclei -l g_l.txt -t fuzzing-templates -rl 50 -o nuclei_out.txt 
       - name: Create local changes
         continue-on-error: true
         run: |
@@ -123,7 +123,7 @@ jobs:
       - name: Commit results to Github
         continue-on-error: true
         run: |
-          git config --local user.email "admin@inbug.org"
+          git config --local user.email "admin@inbug.org" 
           git config --global user.name "inbug-team"
           git commit -m "InCloud Report" -a --allow-empty
       - name: Push changes
